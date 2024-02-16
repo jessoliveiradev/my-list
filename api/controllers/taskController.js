@@ -2,8 +2,8 @@ const Task = require('../models/task');
 
 exports.createTask = async (req, res) => {
   try {
-    const { title, description, status } = req.body;
-    const newTask = await Task.create({ title, description, status });
+    const { title, description, status, user_id } = req.body;
+    const newTask = await Task.create({ title, description, status, user_id });
     res.status(201).json(newTask);
   } catch (error) {
     console.error('Erro ao criar tarefa:', error);

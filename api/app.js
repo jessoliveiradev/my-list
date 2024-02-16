@@ -12,7 +12,7 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso');
   })
