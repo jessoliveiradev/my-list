@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { Typography, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { CheckCircleOutline, HourglassEmpty, Cancel } from '@mui/icons-material';
 import axios from 'axios';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircleOutline />;
+      case 'in_progress':
+        return <HourglassEmpty />;
+      case 'pending':
+        return <HourglassEmpty />;
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -19,14 +34,23 @@ const TaskList = () => {
   }, []);
 
   return (
-    <div className="task-list">
-      {tasks.map(task => (
-        <div key={task.id} className="task">
-          <h2>{task.title}</h2>
-          <p>{task.description}</p>
-          <p>Status: {task.status}</p>
-        </div>
-      ))}
+    <div>
+      <div>
+        <Typography variant="h4" gutterBottom>
+          Lista de Tarefas
+        </Typography>
+      </div>
+      <List>
+        {tasks.map((task, index) => (
+          <ListItem key={index}>
+            <ListItemIcon>
+            {getStatusIcon(task.status)}
+            </ListItemIcon>
+            <ListItemText primary={task.title} />
+            <ListItemText primary={task.description} />
+          </ListItem>
+        ))}
+      </List>
     </div>
   );
 };

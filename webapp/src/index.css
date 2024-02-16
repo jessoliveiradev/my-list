@@ -11,15 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.task-list {
-  display: flex;
-  justify-content: space-between;
-}
-
-.task {
-  width: calc(33.33% - 20px); /* Dividir em 3 colunas */
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
