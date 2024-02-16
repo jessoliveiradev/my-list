@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import { CheckCircleOutline, HourglassEmpty, Cancel } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -9,13 +10,13 @@ const TaskList = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'completed':
-        return <CheckCircleOutline />;
+        return <CheckCircleOutline style={{ color: 'green' }} />;
       case 'in_progress':
-        return <HourglassEmpty />;
+        return <HourglassEmpty style={{ color: 'blue' }} />;
       case 'pending':
-        return <HourglassEmpty />;
+        return <HourglassEmpty style={{ color: 'orange' }} />;
       default:
-        return null;
+        return <Cancel style={{ color: 'red' }} />;
     }
   };
 
@@ -34,20 +35,22 @@ const TaskList = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div display="flex">
+      <Box sx={{ textAlign: 'center' }}>
         <Typography variant="h4" gutterBottom>
           Lista de Tarefas
         </Typography>
-      </div>
-      <List>
+      </Box>
+      <Divider />
+      <List sx={{ width: '100%', maxWidth: 360 }}>
         {tasks.map((task, index) => (
-          <ListItem key={index}>
-            <ListItemIcon>
-            {getStatusIcon(task.status)}
-            </ListItemIcon>
-            <ListItemText primary={task.title} />
-            <ListItemText primary={task.description} />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                {getStatusIcon(task.status)}
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={task.title} secondary={task.description} />
           </ListItem>
         ))}
       </List>
