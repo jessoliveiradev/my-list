@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { CheckCircleOutline, HourglassEmpty, Cancel } from '@mui/icons-material';
+import { grey } from '@mui/material/colors';
+
 import axios from 'axios';
 
 const TaskList = () => {
@@ -46,7 +48,7 @@ const TaskList = () => {
         {tasks.map((task, index) => (
           <ListItem>
             <ListItemAvatar>
-              <Avatar>
+              <Avatar sx={{ bgcolor: grey[100] }} variant="rounded">
                 {getStatusIcon(task.status)}
               </Avatar>
             </ListItemAvatar>
