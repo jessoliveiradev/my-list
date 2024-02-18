@@ -52,7 +52,7 @@ app.post('/login',
         return res.status(401).json({ message: 'Senha incorreta' });
       }
 
-      const token = jwt.sign({ id: user.id }, config.jwtSecret);
+      const token = jwt.sign({ id: user.id, role: user.role }, config.jwtSecret);
       res.json({ token });
     } catch (err) {
       console.error('Erro ao buscar usuário:', err);
