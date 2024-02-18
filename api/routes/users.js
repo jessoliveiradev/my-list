@@ -4,7 +4,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 const userController = require('../controllers/userController');
 
 router.route('/')
-  .post(authenticateToken, userController.createUser)
+  .post(userController.createUser)
   .get(authenticateToken, userController.getAllUsers);
 
 router.route('/:id')
