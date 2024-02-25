@@ -15,7 +15,12 @@ jobs:
 
       - name: Install Node.js
         uses: actions/setup-node@v2
-            
-      - name: Install Dependencies
+
+      - name: Install Dependencies for API
+        working-directory: api
+        run: npm install
+
+      - name: Install Dependencies for Web App
+        working-directory: web-app
         run: npm install
         
