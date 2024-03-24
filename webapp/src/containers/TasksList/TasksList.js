@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import React, { Fragment, useEffect, useState } from 'react';
+import { List, ListItemText, ListItemAvatar, Avatar, Box } from '@mui/material';
+import Card from '@mui/material/Card';
 import { CheckCircleOutline, HourglassEmpty, Cancel } from '@mui/icons-material';
 import { grey } from '@mui/material/colors';
+import AppBarComponent from '../../components/AppBar/index';
 
 import axios from 'axios';
 
-const TaskList = () => {
+const TasksList = () => {
   const [tasks, setTasks] = useState([]);
 
   const getStatusIcon = (status) => {
@@ -26,6 +27,7 @@ const TaskList = () => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get('http://localhost:3000/tasks');
+        console.log(response.data);
         setTasks(response.data);
       } catch (error) {
         console.error('Erro ao carregar as tasks:', error);
@@ -37,27 +39,24 @@ const TaskList = () => {
   }, []);
 
   return (
-    <div display="flex">
-      <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-          Lista de Tarefas
-        </Typography>
+    <Fragment>
+      <AppBarComponent></AppBarComponent>
+      <Box mt={2} ml={2} mr={2}>
+        <List sx={{ width: '100%', maxWidth: 360 }}>
+          {tasks.map((task, index) => (
+            <Card sx={{ marginBottom: 2, paddingLeft: 2 }}>
+              <ListItemAvatar>
+                <Avatar sx={{ bgcolor: grey[100] }} variant="rounded">
+                  {getStatusIcon(task.status)}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={task.title} secondary={task.description} />
+            </Card>
+          ))}
+        </List>
       </Box>
-      <Divider />
-      <List sx={{ width: '100%', maxWidth: 360 }}>
-        {tasks.map((task, index) => (
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: grey[100] }} variant="rounded">
-                {getStatusIcon(task.status)}
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={task.title} secondary={task.description} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    </Fragment>
   );
 };
 
-export default TaskList;
+export default TasksList;
